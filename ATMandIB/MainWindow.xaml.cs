@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -33,6 +34,36 @@ namespace ATMandIB
         //    win1.Show();
         //}
 
+
+        public static void FileRead()
+        {
+            //FileStream fs = new FileStream("cards.txt", FileMode.Open,FileAccess.ReadWrite);
+            //fs.Dispose();
+            using (StreamReader r = File.OpenText("cards.txt"))
+            {
+                List<string> line = new List<string>();
+                
+                
+                for(int i = 0; r.ReadLine() != null ;i++)
+                {
+                    line.Add(r.ReadLine());
+                }
+                string[,] data = new string[line.Count,5];
+                foreach (string str in line)
+                {
+                    data = str.Split(';');
+                }
+            }
+        }
+
+        public static void FileWrite()
+        {
+            using (StreamWriter w = File.AppendText("cards.txt"))
+            {
+                w.WriteLine("");
+            }
+        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             
@@ -49,6 +80,7 @@ namespace ATMandIB
 
             Window win2 = new Window1();
             win2.Title = "ИнтернетБанкинг";
+            
             win2.Show();
 
             //this.Visibility = System.Windows.Visibility.Hidden;
